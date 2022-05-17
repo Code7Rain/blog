@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class
-TagServiceImpl implements TagService {
+public class TagServiceImpl implements TagService {
 
     @Autowired
     private TagMapper tagMapper;

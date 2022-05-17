@@ -18,11 +18,22 @@ public class PermissionService {
     private PermissionMapper permissionMapper;
 
     public Result listPermission(PageParam pageParam){
+        /**
+         * 1、利用mybatis中的page对象接收一下前端传来的参数（第几页，页面大小）
+         * 2、判断参数是否合法
+         * 3、去数据库查找
+         */
+
+//        1、利用mybatis中的page对象接收一下前端传来的参数（第几页，页面大小）
         Page<Permission> page = new Page<>(pageParam.getCurrentPage(),pageParam.getPageSize());
         LambdaQueryWrapper<Permission> queryWrapper = new LambdaQueryWrapper<>();
+
+//        2、判断参数是否合法getQueryString()为查询条件
         if (StringUtils.isNotBlank(pageParam.getQueryString())) {
             queryWrapper.eq(Permission::getName,pageParam.getQueryString());
         }
+
+//        3、去数据库查找
         Page<Permission> permissionPage = this.permissionMapper.selectPage(page, queryWrapper);
         PageResult<Permission> pageResult = new PageResult<>();
         pageResult.setList(permissionPage.getRecords());

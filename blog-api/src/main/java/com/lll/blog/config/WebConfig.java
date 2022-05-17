@@ -23,10 +23,12 @@ public class WebConfig  implements WebMvcConfigurer {
     }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//addPathPatterns("/articles/publish");则publish接口就可以拿到threadlocal中的数据了
+
+        //addPathPatterns("/articles/publish");则publish接口就可以拿到threadlocal中的数据了
+        //mvc中配置登录拦截器，其他方案shrio,springscurity
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/test").addPathPatterns("/comments/create/change")
-                .addPathPatterns("/articles/publish");
+                .addPathPatterns("/articles/publish");  //发布需要拦截，登录才可以发布
     }
 }
 

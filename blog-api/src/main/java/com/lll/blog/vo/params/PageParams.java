@@ -3,7 +3,7 @@ package com.lll.blog.vo.params;
 
 public class PageParams {
     private int page = 1;
-    private int pageSize = 10;
+    private int pageSize = 2;
 
     private Long categoryId;
 

@@ -46,6 +46,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Result listArticle(PageParams pageParams) {
+        //mybatis中封装好的page对象（第几页，页面大小）
         Page<Article> page = new Page<>(pageParams.getPage(),pageParams.getPageSize());
 
         IPage<Article> articleIPage = this.articleMapper.listArticle(

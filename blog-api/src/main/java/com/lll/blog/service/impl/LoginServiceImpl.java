@@ -41,17 +41,25 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public Result login(LoginParam loginParam) {
+
         String account = loginParam.getAccount();
         String password = loginParam.getPassword();
+
+//        1、检查参数是否合法
         if (StringUtils.isNullOrEmpty(account) || StringUtils.isNullOrEmpty(password)){
             return Result.fail(ErrorCode.PARAMS_ERROR.getCode(),ErrorCode.PARAMS_ERROR.getMsg());
         }
+
         password = DigestUtils.md5Hex(password + CommonThings.salt);
+//        2、根据用户账号密码去user表查询
         SysUser sysUser = sysUserService.findUser(account,password);
+
+//        3、不存在登录失败
         if (sysUser == null){
             return Result.fail(ErrorCode.ACCOUNT_PWD_NOT_EXIST.getCode(),ErrorCode.ACCOUNT_PWD_NOT_EXIST.getMsg());
         }
-//        生成tocken
+
+//        4、存在则使用JWT生成token传前端
         String token = JWTUtils.createToken(sysUser.getId());
 //        向redis中加入token
 //        设置当前的key以及value值并且设置过期时间

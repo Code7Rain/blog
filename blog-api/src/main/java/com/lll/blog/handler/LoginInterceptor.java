@@ -31,9 +31,11 @@ public class LoginInterceptor implements HandlerInterceptor {
          * 4、认证成功放行
          */
         if (!(handler instanceof HandlerMethod)){ //不是HandlerMehtood(controller方法，放行
+            //hander有可能是requestresourcehandler  springboot 程序 访问口静态资源
             return true;
         }
-        String token = request.getHeader("Authorization");
+
+        String token = request.getHeader("Authorization");  //token在Heade
         log.info("=================request start===========================");
         String requestURI = request.getRequestURI();
         log.info("request uri:{}",requestURI);
@@ -43,7 +45,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         if (token == null){
             Result result = Result.fail(ErrorCode.NO_LOGIN.getCode(), "未登录");
-            response.setContentType("application/json;charset=utf-8");
+            response.setContentType("application/json;charset=utf-8");  //让前端知道返回是json类型
             response.getWriter().print(JSON.toJSONString(result));
             return false;
         }

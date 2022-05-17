@@ -14,8 +14,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {    //auth.inMemoryAuthentication()
 //        auth.inMemoryAuthentication()
-//                .withUser("admin")
-//                .password(new BCryptPasswordEncoder().encode("123"))
+//                .withUser("999")
+//                .password(new BCryptPasswordEncoder().encode("999"))
 //                .roles("admin");
 //    }
 
@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+        //链式编程
         http.authorizeRequests() //开启登录认证
 //                .antMatchers("/user/findAll").hasRole("admin") //访问接口需要admin的角色
                 .antMatchers("/css/**").permitAll()
